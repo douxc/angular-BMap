@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="no-js" ng-app="bMapApp">
+<head>
+    <meta charset="utf-8">
+    <title>map</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=mVXVL4BToC5F7LZYE5ARS5ON"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body ng-controller="AngularMapCtrl">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<ng-view>
+    <angular-bmap></angular-bmap>
+</ng-view>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="dist/angular-bmap.min.js"></script>
+<script>
+    (function () {
+        angular.module('bMapApp', ['angularMap']).controller('AngularMapCtrl', ['$scope',
+            function ($scope) {
+
+            }]);
+    })();
+</script>
+</body>
+</html>
