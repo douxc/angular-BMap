@@ -1,0 +1,23 @@
+{
+  "name": "angular-BMap",
+  "version": "0.0.1",
+  "homepage": "https://github.com/douxc/angular-BMap",
+  "authors": [
+    "douxc"
+  ],
+  "description": "angular-bmap",
+  "keywords": [
+    "angular-BMap"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0"
+  }
+}
