@@ -74,15 +74,16 @@
         var defer = $q.defer();
         geoLocation().then(function (result) {
           getMap().panTo(result.point);
-          var marker = new BMap.Marker(new BMap.Point(116.404, 39.915));
+          var marker = new BMap.Marker(result.point);
           getMap().addOverlay(marker);
-          defer.resolve();
+          defer.resolve(result);
         }, function (err) {
           //定位失败
           var point = new BMap.Point(116.404, 39.915);
           getMap().panTo(point);
           var marker = new BMap.Marker(point);
           getMap().addOverlay(marker);
+          defer.reject();
         });
         return defer.promise;
       }
