@@ -5,6 +5,10 @@
 
 ##使用Bower安装
 bower install angular-BMap --save或bower install douxc/angular-BMap --save
+##默认中心点设置
+angularBMapProvider.setDefaultPosition(lng,lat)
+>默认中心点为南京
+
 ##initMap
 初始化地图操作
 ##geoLocation

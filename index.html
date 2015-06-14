@@ -33,7 +33,9 @@
 <script src="dist/angular-bmap.min.js"></script>
 <script>
     (function () {
-        angular.module('bMapApp', ['angularMap']).controller('AngularMapCtrl', ['$scope',
+        angular.module('bMapApp', ['angularBMap']).config(['angularBMapProvider', function (angularBMap) {
+//            angularBMap.setDefaultPosition(121.49576, 31.240998);
+        }]).controller('AngularMapCtrl', ['$scope',
             function ($scope) {
 
             }]);

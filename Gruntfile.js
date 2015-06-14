@@ -60,9 +60,12 @@ module.exports = function (grunt) {
       }
     },
     jsdoc2md: {
-      oneOutputFile: {
+      withOptions: {
+        options: {
+          "no-gfm": true
+        },
         src: "src/*.js",
-        dest: "api/documentation.md"
+        dest: "api/with-index.md"
       }
     }
   });
