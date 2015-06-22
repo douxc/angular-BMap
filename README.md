@@ -22,6 +22,7 @@ angularBMapProvider.setDefaultPosition(lng,lat)
 >2. 不支持的兴趣点格式不会添加到地图上，不影响正确的格式添加；<br/>
 如[{loc: {lng: 121.496011, lat: 31.244085}},{lod: '121.494215,31.243005'},{loc: '121.493065,31.244981'}]只有第1、3两个点会添加到地图上；<br/>
 错误信息会通过defer.notify()返回；格式：第 ?个兴趣点loc对象不存在或格式错误，只支持object和string;
+>3. 当前处理进度（第n个兴趣点）也会通过defer.notify()返回；需要自己处理
 
 ##默认的地图指令angularBmap
 使用方式：\<angular-bmap\>\</angular-bmap\>
