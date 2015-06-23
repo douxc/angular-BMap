@@ -26,5 +26,10 @@ angularBMapProvider.setDefaultPosition(lng,lat)
 3. 错误信息会通过defer.notify()返回；格式：第 ?个兴趣点loc对象不存在或格式错误，只支持object和string;
 4. 当前处理进度（第n个兴趣点）也会通过defer.notify()返回；需要自己处理
 
+##drawMarkersAndSetOnclick
+向地图添加兴趣点，同时添加点击事件
+>1. 传入参数：<br/>1）markers 参考drawPoints；<br/>2）onClick - function 点击事件，在点击事件中可以通过this.obj获取当前markers对象<br/>
+2. 默认点击事件是将地图中心点移动到点击的位置
+
 ##默认的地图指令angularBmap
 使用方式：\<angular-bmap\>\</angular-bmap\>

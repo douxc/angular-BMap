@@ -35,7 +35,8 @@
         getMap: getMap,//返回当前地图对象
         geoLocation: geoLocation,//获取当前位置
         geoLocationAndCenter: geoLocationAndCenter,//获取当前位置，并将地图移动到当前位置
-        drawMarkers: drawMarkers//添加兴趣点
+        drawMarkers: drawMarkers,//添加兴趣点
+        drawMarkersAndSetOnclick: drawMarkersAndSetOnclick//添加兴趣点同时添加点击事件
       };
       /**
        * 获取map对象
@@ -152,6 +153,76 @@
         });
         return defer.promise;
       }
+
+      /**
+       * 默认点击事件
+       * @param obj
+       */
+      function markerClick() {
+        getMap().panTo(this.point);
+      }
+
+      /**
+       * 向地图添加兴趣点同时添加点击事件
+       * @param markers
+       * @param onClick
+       * @returns {*}
+       */
+      function drawMarkersAndSetOnclick(markers, onClick) {
+        var _markers = [],//待添加的兴趣点列表
+          defer = $q.defer(),
+          point,//当前添加的坐标点
+          _length,//数组长度
+          _progress,//当前正在添加的点的索引
+          _onClick;//点击事件函数
+        if (onClick) {
+          _onClick = onClick;
+        } else {
+          _onClick = markerClick;
+        }
+        $timeout(function () {
+          //判断是否含有定位点
+          if (!markers) {
+            defer.reject('没有传入兴趣点');
+            return;
+          }
+          //传入了参数
+          if (!angular.isArray(markers)) {
+            //传入的不是array
+            if (markers.loc) {
+              _markers.push(markers);
+            } else {
+              defer.reject('获取不到loc对象信息');
+            }
+          } else {
+            if (markers[0].loc) {
+              _markers = markers;
+            } else {
+              defer.reject('获取不到loc对象信息');
+            }
+          }
+          _length = _markers.length - 1;
+          angular.forEach(_markers, function (obj, index) {
+            _progress = index;
+            if (angular.isObject(obj.loc)) {
+              point = new BMap.Point(obj.loc.lng, obj.loc.lat);
+            } else if (angular.isString(obj.loc)) {
+              point = new BMap.Point(obj.loc.split(',')[0], obj.loc.split(',')[1]);
+            } else {
+              _progress = '第' + index + '个兴趣点loc对象不存在或格式错误，只支持object和string';
+            }
+            var marker = new BMap.Marker(point);
+            marker.obj = obj;
+            marker.addEventListener('click', _onClick);
+            getMap().addOverlay(marker);
+            defer.notify(_progress);
+            if (index === _length) {
+              defer.resolve();
+            }
+          });
+        });
+        return defer.promise;
+      }
     }
   }
 
@@ -191,7 +262,7 @@
         {loc: '121.493065,31.244981'},
         {lod: '121.49691,31.239454'},
         {loc: '121.502515,31.243622'}];
-      ctrl.drawMarkers(markers).then(function (result) {
+      ctrl.drawMarkersAndSetOnclick(markers).then(function (result) {
         console.log('兴趣点添加完成');
       }, function (err) {
         console.log(err);
@@ -210,6 +281,7 @@
       this.initMap = angularBMap.initMap;//初始化
       this.geoLocationAndCenter = angularBMap.geoLocationAndCenter;//获取当前定位并移动到地图中心
       this.drawMarkers = angularBMap.drawMarkers;//添加兴趣点
+      this.drawMarkersAndSetOnclick = angularBMap.drawMarkersAndSetOnclick;//添加兴趣点同时添加点击事件
     }
   }
 })(window, window.angular);
